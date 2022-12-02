@@ -20,7 +20,7 @@ import androidx.compose.ui.window.Dialog
 fun TasksScreen() {
 
     Box(modifier = Modifier.fillMaxSize()) {
-        AddTasksDialog(true) {}
+        AddTasksDialog(true, onDismiss = {}, onTaskAdded = {})
         FabDialog(Modifier.align(Alignment.BottomEnd))
     }
 }
@@ -35,7 +35,7 @@ fun FabDialog(modifier: Modifier) {
 }
 
 @Composable
-fun AddTasksDialog(show: Boolean, onDismiss: () -> Unit) {
+fun AddTasksDialog(show: Boolean, onDismiss: () -> Unit, onTaskAdded:(String) -> Unit) {
     var myTask by remember { mutableStateOf("") }
 
     if (show)
@@ -61,7 +61,7 @@ fun AddTasksDialog(show: Boolean, onDismiss: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.size(16.dp))
                 Button(onClick = {
-                    //mandar tarea
+                    onTaskAdded(myTask)
                 }, modifier = Modifier.fillMaxWidth()) {
                     Text(text = "Añadir tarea")
                 }
