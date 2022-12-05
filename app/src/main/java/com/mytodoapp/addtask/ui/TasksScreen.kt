@@ -21,7 +21,7 @@ fun TasksScreen(tasksViewModel: TasksViewModel) {
     val showDialog: Boolean by tasksViewModel.showDialog.observeAsState(false)
 
     Box(modifier = Modifier.fillMaxSize()) {
-        AddTasksDialog(showDialog, onDismiss = {}, onTaskAdded = {})
+        AddTasksDialog(showDialog, onDismiss = {tasksViewModel.onDialogClose()}, onTaskAdded = {})
         FabDialog(Modifier.align(Alignment.BottomEnd))
     }
 }

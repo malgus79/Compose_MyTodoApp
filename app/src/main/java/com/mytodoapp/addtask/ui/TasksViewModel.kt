@@ -12,4 +12,8 @@ class TasksViewModel @Inject constructor() : ViewModel() {
     private val _showDialog = MutableLiveData<Boolean>()
     val showDialog: LiveData<Boolean> = _showDialog
 
+    fun onDialogClose() {
+        _showDialog.value = false
+    }
+
 }
