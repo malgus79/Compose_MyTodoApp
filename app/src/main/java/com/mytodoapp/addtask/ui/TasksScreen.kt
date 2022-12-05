@@ -21,15 +21,18 @@ fun TasksScreen(tasksViewModel: TasksViewModel) {
     val showDialog: Boolean by tasksViewModel.showDialog.observeAsState(false)
 
     Box(modifier = Modifier.fillMaxSize()) {
-        AddTasksDialog(showDialog, onDismiss = {tasksViewModel.onDialogClose()}, onTaskAdded = {})
-        FabDialog(Modifier.align(Alignment.BottomEnd))
+        AddTasksDialog(
+            showDialog,
+            onDismiss = { tasksViewModel.onDialogClose() },
+            onTaskAdded = { tasksViewModel.onTasksCreated(it) })
+        FabDialog(Modifier.align(Alignment.BottomEnd), tasksViewModel)
     }
 }
 
 @Composable
-fun FabDialog(modifier: Modifier) {
+fun FabDialog(modifier: Modifier, tasksViewModel: TasksViewModel) {
     FloatingActionButton(onClick = {
-        //mostrar dialogo
+        tasksViewModel.onShowDialogClick()
     }, modifier = modifier) {
         Icon(Icons.Filled.Add, contentDescription = "")
     }
@@ -40,7 +43,7 @@ fun AddTasksDialog(show: Boolean, onDismiss: () -> Unit, onTaskAdded:(String) ->
     var myTask by remember { mutableStateOf("") }
 
     if (show)
-        Dialog(onDismissRequest = { onDismiss }) {
+        Dialog(onDismissRequest = { onDismiss() }) {
             Column(
                 Modifier
                     .fillMaxWidth()

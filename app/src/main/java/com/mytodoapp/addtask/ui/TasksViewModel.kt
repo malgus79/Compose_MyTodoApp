@@ -1,5 +1,6 @@
 package com.mytodoapp.addtask.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,15 @@ class TasksViewModel @Inject constructor() : ViewModel() {
 
     fun onDialogClose() {
         _showDialog.value = false
+    }
+
+    fun onTasksCreated(task: String) {
+        _showDialog.value = false
+        Log.i("aris", task)
+    }
+
+    fun onShowDialogClick() {
+        _showDialog.value = true
     }
 
 }
